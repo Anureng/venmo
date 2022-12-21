@@ -3,8 +3,7 @@ import { TransactionContext } from '../context/context'
 
 function Form() {
     const {
-        connectwallet,
-        currentAccount,
+
         sendTransaction,
         setAdressto,
         adressto,

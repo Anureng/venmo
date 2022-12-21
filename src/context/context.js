@@ -26,11 +26,10 @@ export const TransactionProvider = ({ children }) => {
     const [adressto, setAdressto] = useState('')
     const [amount, setAmount] = useState(0)
     const [message, setMessage] = useState('')
-    const [isLoading, setIsLoading] = useState(false)
     const [transactionCount, setTransactionCount] = useState(
         localStorage.getItem('transactionCount')
     )
-    const [transaction, setTransaction] = useState([])
+
 
 
     useEffect(() => {
@@ -38,8 +37,7 @@ export const TransactionProvider = ({ children }) => {
         checkWalletConnected();
 
         checkTransactionExists();
-    }, [transactionCount]);
-
+    });
     const checkTransactionExists = async () => {
         try {
             if (ethereum) {
@@ -48,7 +46,7 @@ export const TransactionProvider = ({ children }) => {
                 window.localStorage.setItem('transactionCount', currentTransactionCount)
             }
         } catch (error) {
-            console.log(error);
+            console.log(error)
         }
     }
 
@@ -71,6 +69,7 @@ export const TransactionProvider = ({ children }) => {
                 )
                 console.log(structureTransactions);
                 sendTransaction(structureTransactions)
+                transactionCount()
             }
             else {
                 console.log('no ethereum object');
@@ -119,11 +118,11 @@ export const TransactionProvider = ({ children }) => {
                     parsedAmount,
                     message
                 )
-                setIsLoading(true);
+
                 console.log(`Loading ${transactioHash.hash}`);
                 await transactioHash.wait();
                 console.log(`Loading ${transactioHash.hash}`);
-                setIsLoading(false);
+
 
                 const transactionsCount = await transactionContract.getTransactionCount();
                 setTransactionCount(transactionsCount.toNumber);
@@ -151,13 +150,6 @@ export const TransactionProvider = ({ children }) => {
         }
     }
 
-
-
-
-
-
-
-
     return (
         <TransactionContext.Provider value={{
             connectwallet,
@@ -169,7 +161,6 @@ export const TransactionProvider = ({ children }) => {
             amount,
             message,
             setMessage,
-            transaction
         }}>
             {children}
         </TransactionContext.Provider>

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import logo from '../example.png'
+// /import logo from '../example.png'
 import { TransactionContext } from '../context/context'
 import { shortenAddress } from "../utils/shortenAddress";
 function Navbar() {
@@ -18,7 +18,6 @@ function Navbar() {
                     <button onClick={connectwallet}>Connect Wallet</button>
                )}
 
-               <img className='h-10 w-10 rounded-full' src={logo} />
           </nav>
      )
 }
